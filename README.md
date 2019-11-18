@@ -1,13 +1,3 @@
-﻿{ENUNCIADO]
-De acuerdo al diseño elaborado en la pregunta 1, desarrolle una "receta" Kubernetes para desplegar su solución. Es requerido que la contraseña de BD se encuentre encriptada por motivos de seguridad del cliente, además se solicita que el puerto de acceso al front sea "30002".
-Adjunte los componentes de su solución en el repositorio.
-
-01-configmap.yml
-02-secretmap.yml
-02-service.yml
-03-deployment.yml
-
-[RESPUESTA]
 
 1. Para la solución, como primer paso realizaremos la creación de un volumen persistente que esté disponible para el cluster.
 
