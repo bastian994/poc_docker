@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: php
+spec:
+  selector:
+    matchLabels:
+      app: php
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: php
+    spec:
+      containers:
+      - image: gcr.io/laboratorio-kubernetes-246115/php:v2
+        name: php
+        ports:
+        - containerPort: 8080
+          name: php
+          protocol: TCP
+        volumeMounts:
+          # name must match the volume name below
+          - name: my-pvc-nfs
+            mountPath: "/var/www/html"
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mysql-root-password
+                key: password
+          - name: SYSTEM_DATASOURCE_USER
+            valueFrom:
+              configMapKeyRef:
+                name: config-mysql
+                key: SYSTEM_DATASOURCE_USER
+      volumes:
+      - name: my-pvc-nfs
+        persistentVolumeClaim:
+          claimName: nfs
